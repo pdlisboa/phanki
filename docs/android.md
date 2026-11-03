@@ -50,3 +50,13 @@ cd android && ./gradlew assembleDebug
 ```
 
 O APK fica em `apps/web/android/app/build/outputs/apk/debug/`.
+
+## Ícone e splash screen
+
+Gerados a partir de `apps/web/public/icon.svg` (o mesmo logo da tela de login). Depois de alterar o SVG:
+
+```bash
+npm run icons -w @phanki/web
+```
+
+O comando atualiza os PNGs do app web (`apps/web/public`) e os ícones adaptativos e splash screens do Android (`apps/web/android/app/src/main/res`). Commite os arquivos gerados.
