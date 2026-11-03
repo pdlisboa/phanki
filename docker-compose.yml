@@ -1,0 +1,19 @@
+# Stack para o Portainer: Stacks > Add stack > Web editor > cole este arquivo.
+# Defina as variáveis em "Environment variables".
+services:
+  phanki:
+    image: ghcr.io/pdlisboa/phanki:latest
+    container_name: phanki
+    restart: unless-stopped
+    ports:
+      - "${PHANKI_PORT:-3000}:3000"
+    environment:
+      ADMIN_EMAIL: ${ADMIN_EMAIL:?defina ADMIN_EMAIL}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:?defina ADMIN_PASSWORD}
+      # Gere com: openssl rand -hex 32
+      JWT_SECRET: ${JWT_SECRET:?defina JWT_SECRET}
+    volumes:
+      - phanki-data:/data
+
+volumes:
+  phanki-data:

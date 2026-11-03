@@ -1,0 +1,59 @@
+name: CI
+
+# Quality gate. Runs on every PR (branch protection requires the "Gate" check)
+# and is reused by the release workflow before anything is published.
+on:
+  pull_request:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    name: Lint, types, unit tests, build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - name: Unit tests (coverage ≥ 90%)
+        run: npm run test:coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-${{ github.run_attempt }}
+          path: coverage/
+      - run: npm run build
+
+  integration:
+    name: Integration tests (Testcontainers)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run test:integration
+
+  gate:
+    name: Gate
+    needs: [check, integration]
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: All checks passed
+        run: |
+          if [ "${{ needs.check.result }}" != "success" ] || [ "${{ needs.integration.result }}" != "success" ]; then
+            echo "::error::Gate failed (check=${{ needs.check.result }}, integration=${{ needs.integration.result }})"
+            exit 1
+          fi

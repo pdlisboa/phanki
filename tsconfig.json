@@ -1,0 +1,5 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": { "lib": ["ES2023", "DOM"], "types": ["node"], "baseUrl": ".", "paths": { "@/*": ["apps/web/src/*"] } },
+  "include": ["test", "apps/server/test", "apps/web/test", "packages/shared/test", "*.config.ts"]
+}

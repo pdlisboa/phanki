@@ -1,0 +1,27 @@
+{
+  "name": "@phanki/server",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch src/index.ts",
+    "build": "esbuild src/index.ts --bundle --platform=node --format=esm --target=node22 --outfile=dist/index.js --external:better-sqlite3 --banner:js=\"import{createRequire}from'module';const require=createRequire(import.meta.url);\"",
+    "start": "node dist/index.js",
+    "typecheck": "tsc -p ."
+  },
+  "dependencies": {
+    "@hono/node-server": "^2.1.6",
+    "@phanki/shared": "*",
+    "better-sqlite3": "^13.0.3",
+    "fzstd": "^0.1.1",
+    "hono": "^4.13.16",
+    "jose": "^6.2.15",
+    "jszip": "^3.10.2",
+    "zod": "^4.6.7"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^9.6.0",
+    "esbuild": "^0.28.2",
+    "tsx": "^4.23.15"
+  }
+}
