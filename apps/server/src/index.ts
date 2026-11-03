@@ -22,5 +22,5 @@ const app = createApp({
   jwtSecret: env('JWT_SECRET'),
 })
 
-const port = Number(env('PORT', '3000'))
+const port = Number(env('PORT', '3500'))
 serve({ fetch: app.fetch, port }, () => console.log(`Phanki listening on :${port} (data: ${dataDir})`))

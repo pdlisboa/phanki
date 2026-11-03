@@ -6,11 +6,11 @@ export const CREDENTIALS = { email: 'it@phanki.test', password: 'integration-pas
 export async function startPhanki(): Promise<{ container: StartedTestContainer; url: () => string }> {
   const container = await new GenericContainer(inject('image'))
     .withEnvironment({ ADMIN_EMAIL: CREDENTIALS.email, ADMIN_PASSWORD: CREDENTIALS.password, JWT_SECRET: 'integration-secret-0123456789abcdef' })
-    .withExposedPorts(3000)
-    .withWaitStrategy(Wait.forHttp('/api/health', 3000).forStatusCode(200))
+    .withExposedPorts(3500)
+    .withWaitStrategy(Wait.forHttp('/api/health', 3500).forStatusCode(200))
     .start()
   // The mapped port changes after a restart, so resolve it lazily.
-  return { container, url: () => `http://${container.getHost()}:${container.getMappedPort(3000)}` }
+  return { container, url: () => `http://${container.getHost()}:${container.getMappedPort(3500)}` }
 }
 
 export async function loginToken(base: string) {

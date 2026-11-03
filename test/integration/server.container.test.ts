@@ -95,7 +95,7 @@ describe('Phanki container', () => {
   it('runs as a non-root user and reports healthy', async () => {
     const { output } = await container.exec(['id', '-u'])
     expect(output.trim()).not.toBe('0')
-    const { output: health } = await container.exec(['node', '-e', "fetch('http://127.0.0.1:3000/api/health').then(r=>r.json()).then(j=>console.log(JSON.stringify(j)))"])
+    const { output: health } = await container.exec(['node', '-e', "fetch('http://127.0.0.1:3500/api/health').then(r=>r.json()).then(j=>console.log(JSON.stringify(j)))"])
     expect(health).toContain('"ok":true')
   })
 })
