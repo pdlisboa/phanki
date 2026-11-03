@@ -6,7 +6,7 @@ services:
     container_name: phanki
     restart: unless-stopped
     ports:
-      - "${PHANKI_PORT:-3000}:3000"
+      - "${PHANKI_PORT:-3500}:3500"
     environment:
       ADMIN_EMAIL: ${ADMIN_EMAIL:?defina ADMIN_EMAIL}
       ADMIN_PASSWORD: ${ADMIN_PASSWORD:?defina ADMIN_PASSWORD}

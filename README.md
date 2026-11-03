@@ -21,7 +21,7 @@ packages/shared  Tipos, renderização de templates do Anki, regras de sync
 ```bash
 npm install
 ADMIN_EMAIL=eu@exemplo.com ADMIN_PASSWORD=senha JWT_SECRET=$(openssl rand -hex 32) npm run dev -w @phanki/server
-npm run dev -w @phanki/web   # http://localhost:5173 (proxy de /api para :3000)
+npm run dev -w @phanki/web   # http://localhost:5173 (proxy de /api para :3500)
 ```
 
 ### Qualidade
@@ -63,7 +63,7 @@ Secrets em *Settings → Secrets and variables → Actions*: `ANDROID_KEYSTORE_B
 
 1. Na primeira release, o pacote no GHCR nasce **privado**: em *github.com → seu perfil → Packages → phanki → Package settings* torne-o público, ou cadastre o `ghcr.io` em *Portainer → Registries* com um token `read:packages`.
 2. *Stacks → Add stack*, cole o [docker-compose.yml](docker-compose.yml) e defina `ADMIN_EMAIL`, `ADMIN_PASSWORD` e `JWT_SECRET` (`openssl rand -hex 32`).
-3. Exponha a porta 3000 atrás do seu proxy reverso com HTTPS (recomendado, principalmente se for acessar fora de casa).
+3. Exponha a porta 3500 atrás do seu proxy reverso com HTTPS (recomendado, principalmente se for acessar fora de casa).
 4. Para atualizar: na stack, **Pull and redeploy**.
 
 Os dados ficam no volume `phanki-data` (`/data/phanki.db` + `/data/media`); faça backup desse volume.
@@ -71,7 +71,7 @@ Os dados ficam no volume `phanki-data` (`/data/phanki.db` + `/data/media`); faç
 ## Instalar no Android
 
 1. Baixe o `.apk` da última release no celular e permita "instalar apps desconhecidos" para o navegador.
-2. Abra o Phanki, informe a URL do servidor (ex.: `https://phanki.seudominio.com` ou `http://192.168.0.10:3000`) e faça login.
+2. Abra o Phanki, informe a URL do servidor (ex.: `https://phanki.seudominio.com` ou `http://192.168.0.10:3500`) e faça login.
 3. Para atualizar, instale o APK novo por cima (os dados locais são mantidos). Em *Ajustes* há um link para a última release.
 
 ## Importar do Anki

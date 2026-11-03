@@ -25,5 +25,5 @@ export default defineConfig({
   ],
   resolve: { alias: { '@': path.resolve(__dirname, 'src') } },
   define: { __APP_VERSION__: JSON.stringify(process.env.APP_VERSION ?? 'dev') },
-  server: { proxy: { '/api': 'http://localhost:3000' } },
+  server: { proxy: { '/api': 'http://localhost:3500' } },
 })
